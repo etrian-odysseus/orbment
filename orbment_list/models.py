@@ -2,6 +2,22 @@ from django.db import models
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 # Create your models here.
 
+class Power(models.Model):
+    """Model representing ATS Power."""
+    name = models.CharField(max_length=10, verbose_name='Power Value')
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+    
+class Range(models.Model):
+    """Model representing Arts Range."""
+    name = models.CharField(max_length=25, verbose_name='Arts Range')
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+    
 class Element(models.Model):
     """Model representing an Orbment."""
     name = models.CharField(max_length=10, verbose_name='Element')
@@ -12,27 +28,28 @@ class Element(models.Model):
     
 class AttributeType(models.Model):
     """Model representing an AttributeType."""
-    description = models.CharField(max_length=100, verbose_name='Attribute Description')
+    name = models.CharField(max_length=25, verbose_name='Attribute Type Name')
+    description = models.CharField(max_length=100, verbose_name='Attribute Type Description')
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.attribute_type.description
+        return self.name
     
 class Attribute(models.Model):
     """Model representing an Orbment."""
-    value = models.IntegerField(verbose_name='Value', null=True, blank=True)
+    value = models.CharField(verbose_name='Value', null=True, blank=True)
     attribute_type = models.ForeignKey(AttributeType, on_delete=models.CASCADE, verbose_name='Attribute Type')
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.attribute_type.description
+        return f'{self.attribute_type.name} {self.value}'
 
 class Orbment(models.Model):
     """Model representing an Orbment."""
     name = models.CharField(max_length=200, verbose_name='Name')
     element = models.ForeignKey(Element, on_delete=models.CASCADE, verbose_name='Element')
-    power = models.CharField(max_length=5, null=True, blank=True, verbose_name='Power')
-    range = models.CharField(max_length=20, null=True, blank=True, verbose_name='Range')
+    power = models.ForeignKey(Power, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Power')
+    range = models.ForeignKey(Range, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Range')
     sepith_cost = models.IntegerField(null=True, blank=True, verbose_name='Sepith Cost')
     u_material_cost = models.IntegerField(null=True, blank=True, verbose_name='U-Material Cost')
     slots_required = models.IntegerField(default=1, verbose_name='Number of Slots Required')
