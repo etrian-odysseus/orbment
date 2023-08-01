@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Orbment List</h1>
+  {% if orbment_list %}
+    <ul>
+      {% for orbment in orbment_list %}
+      <li>
+        <a href="{{ orbment.get_absolute_url }}">{{ orbment.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}
+{% endblock %}

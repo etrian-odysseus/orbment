@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Name: {{ orbment.name }}</h1>
+
+  <p><strong>Element:</strong> <a href="">{{ orbment.element }}</a></p>
+  <!-- author detail link not yet defined -->
+  <p><strong>Power:</strong> {{ orbment.power }}</p>
+  <p><strong>Range:</strong> {{ orbment.range }}</p>
+  <p><strong>Sepith Cost:</strong> {{ orbment.sepith_cost }}</p>
+  <p><strong>U-Material Cost:</strong> {{ orbment.u_material_cost }}</p>
+  <p><strong>Slots Required:</strong> {{ orbment.slots_required }}</p>
+  <p><strong>Attributes:</strong> {{ orbment.attribute_type.all|join:", " }}</p>
+{% endblock %}
