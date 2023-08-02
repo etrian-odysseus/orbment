@@ -46,7 +46,7 @@ class Orbment(models.Model):
     range = models.ForeignKey(Range, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Range')
     sepith_cost = models.IntegerField(null=True, blank=True, verbose_name='Sepith Cost')
     u_material_cost = models.IntegerField(null=True, blank=True, verbose_name='U-Material Cost')
-    slots_required = models.IntegerField(default=1, verbose_name='Number of Slots Required')
+    slots_required = models.IntegerField(default=0, verbose_name='Number of Slots Required')
 
     # ManyToManyField used because orbment can contain many attribute types. Attribute types can belong to many orbments.
     # Orbment class has already been defined so we can specify the object above.
