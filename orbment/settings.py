@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'orbment_list.apps.OrbmentListConfig',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [

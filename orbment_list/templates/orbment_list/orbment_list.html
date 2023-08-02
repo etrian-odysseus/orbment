@@ -1,20 +1,24 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Orbment List</h1>
-      <table>
+<div class="table-responsive">
+      <table class="table table-striped table-hover table-bordered" data-toggle="table">
+        <caption>List of orbments</caption>
+        <thead>
         <tr>
-            <th>Name</th>
-            <th>Element</th>
-            <th>Power</th>
-            <th>Range</th>
-            <th>Sepith Cost</th>
-            <th>U-Material Cost</th>
-            <th>Slots Required</th>
+            <th data-sortable="true">Name</th>
+            <th data-sortable="true">Element</th>
+            <th data-sortable="true">Power</th>
+            <th data-sortable="true">Range</th>
+            <th data-sortable="true">Sepith Cost</th>
+            <th data-sortable="true">U-Material Cost</th>
+            <th data-sortable="true">Slots Required</th>
             {% for attribute in attributes %}
-            <th>{{ attribute.name }}</th>
+            <th data-sortable="true">{{ attribute.name }}</th>
             {% endfor %}
         </tr>
+        </thead>
+        <tbody>
         {% if orbment_list %}
         {% for orbment in orbment_list %}
         <tr>
@@ -34,6 +38,7 @@
             {% endfor %}
         </tr>
         {% endfor %}
+    </tbody>
     </table>
   {% else %}
     <p>There are no books in the library.</p>
@@ -45,4 +50,5 @@
         {% endfor %}
     </tr>
   </table>
+</div>
 {% endblock %}

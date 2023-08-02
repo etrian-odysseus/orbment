@@ -50,7 +50,7 @@ class Orbment(models.Model):
 
     # ManyToManyField used because orbment can contain many attribute types. Attribute types can belong to many orbments.
     # Orbment class has already been defined so we can specify the object above.
-    attributes = models.ManyToManyField(Attribute, related_name='attributes')
+    attributes = models.ManyToManyField(Attribute, blank=True, related_name='attributes')
 
     class Meta:
         ordering = ['element', 'name']
