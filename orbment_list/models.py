@@ -25,24 +25,18 @@ class Element(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.name
-    
-class AttributeType(models.Model):
-    """Model representing an AttributeType."""
-    name = models.CharField(max_length=25, verbose_name='Attribute Type Name')
-    description = models.CharField(max_length=100, verbose_name='Attribute Type Description')
 
-    def __str__(self):
-        """String for representing the Model object."""
-        return self.name
-    
 class Attribute(models.Model):
-    """Model representing an Orbment."""
-    value = models.CharField(verbose_name='Value', null=True, blank=True)
-    attribute_type = models.ForeignKey(AttributeType, on_delete=models.CASCADE, verbose_name='Attribute Type')
+    """Model representing an Attribute."""
+    value = models.CharField(max_length=10, verbose_name='Attribute Value')
+    name = models.CharField(max_length=100, verbose_name='Attribute Name')
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.attribute_type.name} {self.value}'
+        return f'{self.name} {self.value}'
 
 class Orbment(models.Model):
     """Model representing an Orbment."""
@@ -54,9 +48,12 @@ class Orbment(models.Model):
     u_material_cost = models.IntegerField(null=True, blank=True, verbose_name='U-Material Cost')
     slots_required = models.IntegerField(default=1, verbose_name='Number of Slots Required')
 
-    # ManyToManyField used because genre can contain many attribute types. Attribute types can belong to many orbments.
-    # Genre class has already been defined so we can specify the object above.
-    attribute_type = models.ManyToManyField(Attribute)
+    # ManyToManyField used because orbment can contain many attribute types. Attribute types can belong to many orbments.
+    # Orbment class has already been defined so we can specify the object above.
+    attributes = models.ManyToManyField(Attribute, related_name='attributes')
+
+    class Meta:
+        ordering = ['element', 'name']
 
     def __str__(self):
         """String for representing the Model object."""

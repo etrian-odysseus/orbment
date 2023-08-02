@@ -1,16 +1,48 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Orbment List</h1>
-  {% if orbment_list %}
-    <ul>
-      {% for orbment in orbment_list %}
-      <li>
-        <a href="{{ orbment.get_absolute_url }}">{{ orbment.name }}</a>
-      </li>
-      {% endfor %}
-    </ul>
+<h1>Orbment List</h1>
+      <table>
+        <tr>
+            <th>Name</th>
+            <th>Element</th>
+            <th>Power</th>
+            <th>Range</th>
+            <th>Sepith Cost</th>
+            <th>U-Material Cost</th>
+            <th>Slots Required</th>
+            {% for attribute in attributes %}
+            <th>{{ attribute.name }}</th>
+            {% endfor %}
+        </tr>
+        {% if orbment_list %}
+        {% for orbment in orbment_list %}
+        <tr>
+            <td><a href="{{ orbment.get_absolute_url }}">{{ orbment.name }}</a></td>
+            <td>{{ orbment.element }}</td>
+            <td>{{ orbment.power }}</td>
+            <td>{{ orbment.range }}</td>
+            <td>{{ orbment.sepith_cost }}</td>
+            <td>{{ orbment.u_material_cost }}</td>
+            <td>{{ orbment.slots_required }}</td>
+            {% for k, v in orb_attrs.items %}
+            {%if k == orbment.name %}
+            {% for key, value in v %}
+            <td>{{ value }}</td>
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}
+  <table>
+    <tr>
+        {% for key, value in thingy.items %}
+        <li>{{ key }}:{{ value }}</li>
+        {% endfor %}
+    </tr>
+  </table>
 {% endblock %}
